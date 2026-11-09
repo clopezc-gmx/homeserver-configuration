@@ -1,0 +1,56 @@
+# server.conf.sample
+#
+# Template for server.conf. Copy it, then fill in the values for your server:
+#
+#   cp $HS_ROOT/server.conf.sample $HS_ROOT/source/server.conf
+#
+# Each KEY is substituted for the matching @@KEY@@ marker in the documentation.
+# Keep the format KEY="value": no spaces around "=", no `export`.
+# server.conf holds real values and must never be committed.
+
+# --- Identity ---
+OWNER=""                       # Linux user that owns the data directories
+NC_USER=""                     # Nextcloud account name
+SERVER_NAME=""                 # Short hostname of the server
+
+# --- Network ---
+SERVER_IP=""                   # Server LAN IPv4 address
+LAN_NET=""                     # LAN network in CIDR notation
+VPN_NET=""                     # WireGuard network in CIDR notation
+
+# --- Ports ---
+SSH_PORT=""
+WG_PORT=""
+COCKPIT_PORT=""
+HOMEASSISTANT_PORT=""
+NFS_SERVER_PORT=""
+JELLYFIN_PORT=""
+NC_AIO_SELFSIGNED_PORT=""      # Nextcloud AIO interface, self-signed certificate
+NC_AIO_PORT=""                 # Nextcloud AIO interface, valid certificate
+PIHOLE_HTTP_PORT=""
+PIHOLE_HTTPS_PORT=""
+SERVER_DOC_PORT=""
+TASKCHAMPION_PORT=""
+WIKIVIEW_DATA_PORT=""
+WIKIVIEW_RECIPES_PORT=""
+
+# --- Disks ---
+DISK_SERIAL_OS=""
+DISK_SERIAL_DATA=""
+DISK_SERIAL_OFFLINE_BACKUP=""
+DISK_SERIAL_ARCHIVE=""
+DISK_SERIAL_ARCHIVE_COPY=""
+DISK_UUID_DATA=""
+DISK_UUID_OFFLINE_BACKUP=""
+DISK_UUID_ARCHIVE=""
+DISK_UUID_ARCHIVE_COPY=""
+
+# --- Nextcloud group-folder paths ---
+FAMILY_DIR_1=""
+FAMILY_NAME_1=""
+
+# --- Backup secrets ---
+SECRETS_DIR=""                 # Directory on disk-archive holding the key material
+BORG_PASSWORD_STORE_REPO=""    # Bare git repository of the Borg password store
+GPG_PUBLIC_KEY_FILE=""
+GPG_SECRET_KEY_FILE=""
