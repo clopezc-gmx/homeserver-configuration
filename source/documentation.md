@@ -982,3 +982,56 @@ sudo umount /mnt/disk-offline-backup
 :linenos:
 ```
 ````
+
+(section_5)=
+
+## 5. Basic Server Configuration
+
+(section_5_1)=
+
+### 5.1 Mount unknown USB drives
+
+- Known disks are mounted through `/etc/fstab`.
+- Unknown or temporary USB drives are mounted manually with `udisksctl`.
+
+```bash
+# Install
+sudo apt install udisks2 udiskie
+
+# Add permissions
+sudo usermod -aG plugdev @@OWNER@@
+sudo reboot
+```
+
+- Usage:
+
+```bash
+# Mount
+lsblk -f
+udisksctl mount -b /dev/sdX1   # This will mount something like `/media/@@OWNER@@/<LABEL>`
+
+# Unmount
+sync
+udisksctl unmount -b /dev/sdX1
+udisksctl power-off -b /dev/sdX
+```
+
+(section_5_2)=
+
+### 5.2 Configure lid behavior
+
+- Configure the server to continue running when the laptop lid is closed.
+
+```text
+# /etc/systemd/logind.conf
+
+HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+HandleLidSwitchDocked=ignore
+```
+
+- Reboot after changing the configuration.
+
+- Expected behavior:
+  - Closing the lid does not suspend the server.
+  - Opening the lid restores the display.
