@@ -1,0 +1,4 @@
+.venv
+build/
+source/index.md
+source/server.conf
