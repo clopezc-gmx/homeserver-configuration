@@ -2,9 +2,11 @@
 
 Documentation of a Debian-based home server: network, backups, VPN, Nextcloud, Home Assistant, Jellyfin and more. Built with [Sphinx](https://www.sphinx-doc.org/) and MyST Markdown.
 
-> **Status: work in progress.** The documentation is being converted from a private version: real values are being replaced by `@@NAME@@` markers section by section, an inconsistencies are being fixed.
+> **Status: work in progress.**
+> The documentation is being converted from a private version: real values are being replaced by `@@NAME@@` markers section by section, an inconsistencies are being fixed.
+> Sections 1 - 4 now can be built and deployed.
 
-The raw documentation is [`source/documentation.md`](source/documentation.md). It can be read directly on GitHub, but site-specific values appear as `@@NAME@@` markers (for example `@@SSH_PORT@@`) and a few features (`literalinclude` scripts, dropdowns, cross-references) only render in the built HTML.
+The raw documentation is [`source/documentation.md`](source/documentation.md). It can be read directly on GitHub, but site-specific values appear as `@@NAME@@` markers (for example `@@SSH_PORT@@`) and a few features (`literalinclude` scripts, drop-downs, cross-references) only render in the built HTML.
 
 ## Repository layout
 
@@ -23,24 +25,25 @@ requirements.txt         # Python dependencies
 Requirements: Python 3 and `make`.
 
 ```bash
-#1. Run the initialization script
+# Set repository path and/or add it in your .bashrc if needed
+export HS_ROOT=$HOME/homeserver-configuration
+
+# Run the initialization script
 ./initial_setup.sh
 
-# 2. Provide your own values for the @@NAME@@ markers
+# Provide your own values for the @@NAME@@ markers
 cp server.conf.example source/server.conf
 $EDITOR server.conf
 
-# 3. Run the build script. Generates the HTML into build/html
+# Run the build script.
+# 1. Replaces all @@NAME@@ with the corresponding values from $HS_ROOT/source/server.conf
+# 2. Generates the HTML into build/html
 ./build.sh
 
-# 4. Serve it locally 
+# Serves it locally (by default in port 4444)
 ./deploy.sh
 ```
 
-`make html` reads `server.conf` and replaces every `@@NAME@@` marker with its value in a staged copy of `source/`; the files in the repository are never modified. The build fails if a marker has no value.
-
-Other targets: `make clean` removes `build/`, and `make linkcheck` checks external links.
-
 ## Notes
 
-- `server.conf` holds real values for one specific server. It is listed in `.gitignore`.
+- `server.conf` holds real values for one specific server and should not be committed.
